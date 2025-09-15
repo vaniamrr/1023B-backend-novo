@@ -1,14 +1,12 @@
 import express, { Request, Response } from 'express'
 import 'dotenv/config'
 import { MongoClient } from 'mongodb'
-import cors from 'cors'
 
 const client = new MongoClient(process.env.MONGO_URI!)
 await client.connect()
 const db = client.db(process.env.MONGO_DB!)
 
 const app = express()
-app.use(cors())
 //Esse middleware faz com que o 
 // express faça o parse do body da requisição para json 
 app.use(express.json())
