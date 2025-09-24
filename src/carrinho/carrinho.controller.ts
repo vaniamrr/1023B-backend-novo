@@ -16,8 +16,8 @@ interface Carrinho {
 class CarrinhoController {
     //adicionarItem
     async adicionarItem(req:Request, res:Response) {
-        const { usuarioId, produtoId, quantidade, precoUnitario, nome } = req.body;
-    }
+        const { usuarioId, produtoId, quantidade } = req.body;
+    } 
         //Buscar o produto no banco de dados
         //Pegar o preço do produto
         //Pegar o nome do produto
