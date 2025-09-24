@@ -1,6 +1,6 @@
 import express from 'express'
 import 'dotenv/config'
-import rotas from './rotas'
+import rotas from './rotas.js'
 const app = express()
 //Esse middleware faz com que o 
 // express faça o parse do body da requisição para json 
