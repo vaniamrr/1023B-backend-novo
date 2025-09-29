@@ -7,6 +7,7 @@ const app = express()
 app.use(express.json())
 
 // Usando as rotas definidas em rotas.ts
+
 app.use(rotas)
 
 // Criando o servidor na porta 8000 com o express
