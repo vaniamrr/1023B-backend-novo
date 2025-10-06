@@ -1,6 +1,8 @@
 import { Request, Response } from 'express'
 import { db } from '../database/banco-mongo.js'
+import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
+
 class UsuariosController {
     async adicionar(req: Request, res: Response) {
         const { nome, idade, email, senha } = req.body
@@ -21,6 +23,24 @@ class UsuariosController {
         const usuarios = await db.collection('usuarios').find().toArray()
         const usuariosSemSenha = usuarios.map(({ senha, ...resto }) => resto)
         res.status(200).json(usuariosSemSenha)
+    }
+    async login(req: Request, res: Response) {
+        const { email, senha } = req.body
+        if (!email || !senha){
+            return res.status(400).json({mensagem:"Email e senha são obrigatórios"})
+        }
+        // Como verificar se o usuario existe no banco de dados
+        const usuario = await db.collection('usuarios').findOne({ email })
+        if (!usuario) {
+            return res.status(401).json({mensagem:"Usuário ou senha inválidos"})
+        }
+        const senhaValida = await bcrypt.compare(senha, usuario.senha)
+        
+        if(!senhaValida){
+            return res.status(401).json({mensagem:"Usuário ou senha inválidos"})
+        }
+        const token = jwt.sign({ usuarioId: usuario._id }, process.env.JWT_SECRET!  , { expiresIn: '1m' })
+        res.status(200).json({ token:token })
     }
 }
 
