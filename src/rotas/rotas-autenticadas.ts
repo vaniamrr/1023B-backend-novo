@@ -1,8 +1,8 @@
 import {Router} from 'express'
 
-import carrinhoController from './carrinho/carrinho.controller.js'
-import produtosController from './produtos/produtos.controller.js'
-import usuariosController from './usuarios/usuarios.controller.js'
+import carrinhoController from '../carrinho/carrinho.controller.js'
+import produtosController from '../produtos/produtos.controller.js'
+import usuariosController from '../usuarios/usuarios.controller.js'
 
 const rotas = Router()
 
@@ -11,18 +11,13 @@ const rotas = Router()
 //rotas.post('/carrinho',carrinhoController.adicionar)
 
 // Rotas dos produtos
-rotas.get('/produtos',produtosController.listar)
+//rotas.get('/produtos',produtosController.listar)
 rotas.post('/produtos',produtosController.adicionar)
 
 rotas.post('/adicionarItem',carrinhoController.adicionarItem)
 rotas.post('/removerItem',carrinhoController.removerItem)
 rotas.get('/carrinho/:usuarioId',carrinhoController.listar)
 rotas.delete('/carrinho/:usuarioId',carrinhoController.remover)
-
-// Rotas dos usuários
-rotas.post('/adicionarUsuario',usuariosController.adicionar)
-rotas.post('/login',usuariosController.login)
-
 
 
 export default rotas

@@ -1,21 +1,22 @@
-import express from 'express'
+import express, { Request, Response, NextFunction }from 'express'
 import 'dotenv/config'
-import rotas from './rotas.js'
+import rotasNaoAutenticadas from './rotas/rotas-nao-autenticadas.js'
+import rotasAutenticadas from './rotas/rotas-autenticadas.js'
+import Auth from './middlewares/auth.js'
+
 const app = express()
 //Esse middleware faz com que o 
 // express faça o parse do body da requisição para json 
 
 
-//Meu primeiro middleware
-function middleware1(req:express.Request,res:express.Response,next:express.NextFunction){
-    console.log("Passei no middleware 1")
-    next() //chama o próximo middleware
-}
 
 app.use(express.json())
+//criar um middleware que bloqueia tudo
 
-// Usando as rotas definidas em rotas.ts
-app.use(middleware1,rotas)
+
+
+app.use(Auth, rotasAutenticadas)
+app.use(rotasNaoAutenticadas)
 
 // Criando o servidor na porta 8000 com o express
 app.listen(8000, () => {
