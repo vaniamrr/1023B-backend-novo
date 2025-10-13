@@ -9,8 +9,9 @@ app.use(express.json())
 
 
 // Usando as rotas definidas em rotas.ts
-app.use(Auth,rotasAutenticadas)
 app.use(rotasNaoAutenticadas)
+app.use(Auth)
+app.use(rotasAutenticadas)
 
 // Criando o servidor na porta 8000 com o express
 app.listen(8000, () => {
