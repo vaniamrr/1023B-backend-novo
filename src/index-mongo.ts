@@ -3,7 +3,9 @@ import 'dotenv/config'
 import rotasNaoAutenticadas from './rotas/rotas-nao-autenticadas.js'
 import rotasAutenticadas from './rotas/rotas-autenticadas.js'
 import Auth from './middlewares/auth.js'
+import cors from 'cors'
 const app = express()
+app.use(cors())
 
 app.use(express.json())
 
